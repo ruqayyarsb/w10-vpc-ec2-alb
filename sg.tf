@@ -30,7 +30,7 @@ resource "aws_security_group" "sg-demo1" {
   vpc_id      = aws_vpc.vpc1.id
 
   ingress {
-    description = "allow http"
+    description = "Allow http"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
