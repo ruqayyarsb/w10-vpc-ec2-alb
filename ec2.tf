@@ -1,12 +1,12 @@
 resource "aws_instance" "server1" {
   ami                    = "ami-0c1e21d82fe9c9336"
-  instance_type          = "t3.micro"
+  instance_type          = var.INSTANCE_TYPE
   vpc_security_group_ids = [aws_security_group.sg-demo.id]
-  availability_zone      = "us-east-1a"
+  availability_zone      = "${var.REGION}a"
   subnet_id              = aws_subnet.private1.id
   user_data              = file("setup.sh")
   tags = {
-    Name = "webserver-1"
+    Name = var.ENVIRONMENT
   }
 
 }
