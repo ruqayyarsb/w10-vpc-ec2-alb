@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+        ENVIRONMENT   = "dev"
+        REGION        = "us-east-1"
+        INSTANCE_TYPE = "t2.micro"
+    }
     stages{
         stage('init') {
             steps{
@@ -13,11 +18,15 @@ pipeline {
             }
             
         }
-        stage('plan') {
-            steps{
-                sh 'terraform plan -no-color'
+         stage('plan') {
+            steps {
+                sh '''
+                    terraform plan -no-color \
+                    -var="ENVIRONMENT=${ENVIRONMENT}" \
+                    -var="REGION=${REGION}" \
+                    -var="INSTANCE_TYPE=${INSTANCE_TYPE}"
+                '''
             }
-            
         }
         stage('format') {
             steps{
